@@ -44,7 +44,18 @@ function forward_machine_ports_start() {
     for port in $MACHINE_PORTS
     do
         echo "forwarding $port"
-        ssh -N -f -C -L $port":localhost:"$port -o PasswordAuthentication=no -o IdentitiesOnly=yes -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -o LogLevel=quiet -o ConnectionAttempts=3 -o ConnectTimeout=10 -o ControlMaster=no -o ControlPath=no docker@$ACTIVE_MACHINE_IP -i ~/.docker/machine/machines/dev2/id_rsa
+        ssh -N -f -C -L $port":localhost:"$port \
+          -o PasswordAuthentication=no \
+          -o IdentitiesOnly=yes \
+          -o StrictHostKeyChecking=no \
+          -o UserKnownHostsFile=/dev/null \
+          -o LogLevel=quiet \
+          -o ConnectionAttempts=3 \
+          -o ConnectTimeout=10 \
+          -o ControlMaster=no \
+          -o ControlPath=no \
+          docker@$ACTIVE_MACHINE_IP \
+          -i ~/.docker/machine/machines/$ACTIVE_MACHINE/id_rsa
     done
 }
 
